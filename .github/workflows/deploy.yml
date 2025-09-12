@@ -1,0 +1,105 @@
+name: Deploy to VPS Production
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:  # Permite ejecutar manualmente
+
+jobs:
+  deploy:
+    name: Deploy to Production VPS
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        port: 22
+        script: |
+          # Logging
+          echo "🚀 Starting deployment at $(date)"
+          
+          # Navigate to project directory
+          cd ~/app_conciliacion
+          
+          # Backup current state
+          echo "📦 Creating backup..."
+          docker-compose ps > ~/backup-$(date +%Y%m%d_%H%M%S).log
+          
+          # Pull latest changes
+          echo "⬇️ Pulling latest changes..."
+          git fetch --all
+          git reset --hard origin/main
+          git pull origin main
+          
+          # Stop current services
+          echo "⏹️ Stopping current services..."
+          docker-compose down
+          
+          # Clean up old images (optional - saves space)
+          echo "🧹 Cleaning up old Docker images..."
+          docker system prune -f
+          
+          # Build and start services
+          echo "🔨 Building and starting services..."
+          docker-compose up --build -d
+          
+          # Wait for services to be ready
+          echo "⏳ Waiting for services to start..."
+          sleep 45
+          
+          # Health check
+          echo "🏥 Performing health check..."
+          MAX_ATTEMPTS=10
+          ATTEMPT=1
+          
+          while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
+            if curl -f http://localhost:8082/api/ > /dev/null 2>&1; then
+              echo "✅ Backend health check passed!"
+              break
+            else
+              echo "🔄 Health check attempt $ATTEMPT/$MAX_ATTEMPTS failed, retrying..."
+              sleep 10
+              ATTEMPT=$((ATTEMPT + 1))
+            fi
+          done
+          
+          if [ $ATTEMPT -gt $MAX_ATTEMPTS ]; then
+            echo "❌ Health check failed after $MAX_ATTEMPTS attempts"
+            echo "📋 Container status:"
+            docker-compose ps
+            echo "📋 Backend logs:"
+            docker-compose logs --tail=50 backend
+            exit 1
+          fi
+          
+          # Check frontend
+          if curl -f http://localhost/ > /dev/null 2>&1; then
+            echo "✅ Frontend health check passed!"
+          else
+            echo "⚠️ Frontend health check failed"
+          fi
+          
+          # Final status
+          echo "📊 Final deployment status:"
+          docker-compose ps
+          
+          echo "🎉 Deployment completed successfully at $(date)!"
+          echo "🌐 Application available at: http://82.112.250.211"
+
+    - name: Notify on failure
+      if: failure()
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        script: |
+          echo "❌ Deployment failed at $(date)" >> ~/deployment-failures.log
+          # Aquí puedes agregar notificaciones webhook

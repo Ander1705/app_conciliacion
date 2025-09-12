@@ -16,7 +16,9 @@ Sistema web para la gestión de solicitudes de conciliación extrajudicial de la
 - ✅ **Dockerizado**: Deployable con Docker Compose
 - ✅ **HTTPS Ready**: Configurado para SSL con certificados auto-firmados
 - ✅ **VPS Deployment**: Optimizado para despliegue en IP 82.112.250.211
+- ✅ **CI/CD GitHub Actions**: Despliegue automático desde GitHub
 - ✅ **Health Checks**: Monitoreo de servicios con Spring Actuator
+- ✅ **Rollback Support**: Scripts de recuperación automática
 - ✅ **Formularios completos**: Todos los campos requeridos para conciliación
 - ✅ **Validaciones**: Frontend y backend completamente validados
 
@@ -33,8 +35,12 @@ app_conciliacion/
 │   ├── Dockerfile        # Container frontend
 │   └── package.json      # Dependencias npm
 ├── docker-compose.yml    # Orquestación de servicios
-├── .env.example          # Variables de entorno
-└── scripts/              # Scripts de utilidad
+├── .env                  # Variables de entorno
+├── .github/workflows/    # GitHub Actions CI/CD
+├── scripts/              # Scripts de utilidad
+├── deploy.sh            # Script de despliegue
+├── manual-deploy.sh     # Despliegue manual
+└── rollback.sh          # Script de rollback
 ```
 
 ## 🛠️ Tecnologías
@@ -57,6 +63,7 @@ app_conciliacion/
 
 ### DevOps
 - **Docker & Docker Compose** - Containerización
+- **GitHub Actions** - CI/CD automatizado
 - **Nginx** - Servidor web para frontend con SSL
 - **PostgreSQL** - Base de datos de producción
 - **SSL/TLS** - Certificados auto-firmados para HTTPS
@@ -376,6 +383,64 @@ docker-compose restart backend
 git pull
 docker-compose up --build -d
 ```
+
+## 🤖 CI/CD con GitHub Actions
+
+### Configuración Inicial
+
+**1. Generar clave SSH en el VPS:**
+```bash
+# En el VPS (82.112.250.211)
+ssh-keygen -t rsa -b 4096 -C "github-actions@deploy" -f ~/.ssh/github-actions
+cat ~/.ssh/github-actions.pub >> ~/.ssh/authorized_keys
+```
+
+**2. Configurar Secrets en GitHub:**
+- Ve a tu repositorio → Settings → Secrets and variables → Actions
+- Agrega estos secrets:
+
+| Secret | Valor |
+|--------|-------|
+| `VPS_HOST` | `82.112.250.211` |
+| `VPS_USER` | `root` (o tu usuario del VPS) |
+| `VPS_SSH_KEY` | (contenido completo de `~/.ssh/github-actions`) |
+
+**3. Workflow Automático:**
+El archivo `.github/workflows/deploy.yml` ya está configurado y se ejecutará automáticamente cuando:
+- Hagas push a la rama `main`
+- Ejecutes manualmente desde GitHub Actions
+
+### Scripts de Mantenimiento
+
+**Despliegue manual (si falla CI/CD):**
+```bash
+./manual-deploy.sh
+```
+
+**Rollback a versión anterior:**
+```bash
+./rollback.sh
+```
+
+**Ver estado del despliegue:**
+```bash
+# Ver logs de GitHub Actions
+tail -f ~/deployment.log
+
+# Estado de contenedores
+docker-compose ps
+
+# Logs específicos
+docker-compose logs --tail=20 backend
+```
+
+### Flujo de Trabajo CI/CD
+
+1. **Desarrollo** → Hacer cambios localmente
+2. **Git push** → Subir cambios a GitHub
+3. **GitHub Actions** → Se ejecuta automáticamente el workflow
+4. **VPS** → Se actualiza automáticamente la aplicación
+5. **Verificación** → La app está disponible en https://82.112.250.211
 
 ## 📝 API Endpoints
 
