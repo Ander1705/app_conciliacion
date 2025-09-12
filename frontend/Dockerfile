@@ -1,52 +1,39 @@
-# ====================
-# FRONTEND DOCKERFILE - React/Vite
-# ====================
-
-# Usar Node.js 18 como imagen base para build
+# Build stage
 FROM node:18-alpine as build
 
-# Información del mantenedor
 LABEL maintainer="App Conciliación UCMC"
 
-# Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar archivos de dependencias
+# Copy package files
 COPY package*.json ./
 
-# Instalar dependencias
+# Install all dependencies (including devDependencies for build)
 RUN npm ci
 
-# Copiar código fuente
+# Copy source code
 COPY . .
 
-# Construir la aplicación para producción
+# Build application
 RUN npm run build
 
-# ====================
-# IMAGEN FINAL - NGINX
-# ====================
+# Production stage
 FROM nginx:alpine
 
-# Instalar curl para health checks
+# Install curl for health checks
 RUN apk --no-cache add curl
 
-# Copiar archivos de build al directorio de nginx
+# Copy built application
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copiar configuración personalizada de nginx
+# Copy nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Crear usuario no-root para nginx
-# RUN addgroup -g 1001 -S nginx && \
-#     adduser -S -D -H -u 1001 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx
+# Nginx user already exists in nginx:alpine, no need to create
 
-# Exponer puerto 80
+# Expose ports
 EXPOSE 80
+EXPOSE 443
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost/ || exit 1
-
-# Comando para iniciar nginx
+# Start nginx
 CMD ["nginx", "-g", "daemon off;"]

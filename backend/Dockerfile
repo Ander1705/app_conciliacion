@@ -1,75 +1,63 @@
-# ====================
-# BACKEND DOCKERFILE - Spring Boot
-# ====================
-
-# Usar OpenJDK 17 como imagen base
+# Build stage
 FROM openjdk:17-jdk-slim as build
 
-# Información del mantenedor
 LABEL maintainer="App Conciliación UCMC"
 
-# Instalar herramientas necesarias
+# Install build tools
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar archivos de Gradle
+# Copy gradle wrapper and build files
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle .
 COPY settings.gradle .
 
-# Dar permisos de ejecución al gradlew
+# Make gradlew executable
 RUN chmod +x ./gradlew
 
-# Copiar código fuente
+# Copy source code
 COPY src src
 
-# Construir la aplicación
+# Build application
 RUN ./gradlew clean build -x test
 
-# ====================
-# IMAGEN FINAL
-# ====================
+# Runtime stage
 FROM openjdk:17-jdk-slim
 
-# Instalar dependencias del sistema para generación de PDFs
+# Install runtime dependencies
 RUN apt-get update && apt-get install -y \
     fontconfig \
     fonts-dejavu-core \
     fonts-dejavu-extra \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Crear usuario no-root para seguridad
+# Create application user
 RUN groupadd -r appuser && useradd -r -g appuser appuser
 
-# Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar el JAR desde el stage de build
+# Copy JAR file (corregido para manejar múltiples JARs)
 COPY --from=build /app/build/libs/ ./libs/
-RUN ls libs/*.jar | head -1 | xargs -I {} cp {} app.jar
+RUN find libs/ -name "*.jar" ! -name "*-plain.jar" | head -1 | xargs -I {} cp {} app.jar
 
-# Crear directorio para logs y darle permisos
+# Create logs directory and set permissions
 RUN mkdir -p /app/logs && chown -R appuser:appuser /app
 
-# Cambiar al usuario no-root
+# Switch to non-root user
 USER appuser
 
-# Exponer puerto 8082
+# Expose port
 EXPOSE 8082
 
-# Variables de entorno
+# Environment variables
 ENV JAVA_OPTS="-Xms256m -Xmx512m -Dspring.profiles.active=production"
 ENV SERVER_PORT=8082
 
-# Comando de inicio con opciones optimizadas
+# Start application
 CMD ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8082/actuator/health || exit 1
