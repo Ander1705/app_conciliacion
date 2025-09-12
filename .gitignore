@@ -1,0 +1,223 @@
+# ====================
+# JAVA / SPRING BOOT
+# ====================
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Spring Boot
+*.log
+*.log.*
+logs/
+server.log
+
+# IDE - IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# IDE - Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+
+# IDE - VSCode
+.vscode/
+
+# ====================
+# NODE.JS / REACT
+# ====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+.nyc_output
+
+# ESLint cache
+.eslintcache
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Vite build output
+frontend/dist/
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# ====================
+# DOCKER
+# ====================
+# Override docker-compose files
+docker-compose.override.yml
+
+# ====================
+# DATABASE
+# ====================
+*.db
+*.sqlite
+*.sqlite3
+
+# H2 Database
+*.h2.db
+*.trace.db
+*.lock.db
+
+# ====================
+# SISTEMA OPERATIVO
+# ====================
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ====================
+# ARCHIVOS DE PRUEBA
+# ====================
+*.pdf
+test-*.pdf
+*.tmp
+*.temp
+
+# ====================
+# BACKUP Y TEMPORAL
+# ====================
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+.#*
+
+# ====================
+# CERTIFICADOS Y CLAVES
+# ====================
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+
+# ====================
+# CONFIGURACIÓN LOCAL
+# ====================
+application-local.properties
+application-local.yml
+config/local/
+
+
+.claude
+CLAUDE.md

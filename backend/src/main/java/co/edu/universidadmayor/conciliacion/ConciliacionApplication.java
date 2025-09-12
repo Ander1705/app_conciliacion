@@ -1,0 +1,13 @@
+package co.edu.universidadmayor.conciliacion;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ConciliacionApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ConciliacionApplication.class, args);
+	}
+
+}
