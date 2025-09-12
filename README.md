@@ -514,3 +514,6 @@ Este proyecto está bajo la Licencia MIT.
 Para soporte técnico o consultas:
 - 📧 Email: soporte@ucmc.edu.co
 - 🌐 Web: https://www.ucmc.edu.co
+
+
+DESARROLLADOR GENERAL: Anderson Felipe Montaña Castelblanco
