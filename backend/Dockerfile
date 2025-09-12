@@ -51,7 +51,8 @@ RUN groupadd -r appuser && useradd -r -g appuser appuser
 WORKDIR /app
 
 # Copiar el JAR desde el stage de build
-COPY --from=build /app/build/libs/*.jar app.jar
+COPY --from=build /app/build/libs/ ./libs/
+RUN ls libs/*.jar | head -1 | xargs -I {} cp {} app.jar
 
 # Crear directorio para logs y darle permisos
 RUN mkdir -p /app/logs && chown -R appuser:appuser /app

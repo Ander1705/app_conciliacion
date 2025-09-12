@@ -14,6 +14,8 @@ Sistema web para la gestión de solicitudes de conciliación extrajudicial de la
 - ✅ **Generación de PDF**: Documentos legales automatizados con iText7
 - ✅ **Base de datos**: PostgreSQL para producción, H2 para desarrollo
 - ✅ **Dockerizado**: Deployable con Docker Compose
+- ✅ **HTTPS Ready**: Configurado para SSL con certificados auto-firmados
+- ✅ **VPS Deployment**: Optimizado para despliegue en IP 82.112.250.211
 - ✅ **Health Checks**: Monitoreo de servicios con Spring Actuator
 - ✅ **Formularios completos**: Todos los campos requeridos para conciliación
 - ✅ **Validaciones**: Frontend y backend completamente validados
@@ -55,8 +57,9 @@ app_conciliacion/
 
 ### DevOps
 - **Docker & Docker Compose** - Containerización
-- **Nginx** - Servidor web para frontend
+- **Nginx** - Servidor web para frontend con SSL
 - **PostgreSQL** - Base de datos de producción
+- **SSL/TLS** - Certificados auto-firmados para HTTPS
 
 ## 🚀 Inicio Rápido
 
@@ -88,6 +91,12 @@ docker-compose up --build -d
 - Frontend: http://localhost
 - Backend API: http://localhost:8082/api
 - Health Check: http://localhost:8082/api/actuator/health
+
+**Para despliegue en VPS (82.112.250.211):**
+- Frontend HTTPS: https://82.112.250.211
+- Frontend HTTP: http://82.112.250.211 (redirige a HTTPS)
+- Backend API: https://82.112.250.211/api
+- Health Check: https://82.112.250.211/api/actuator/health
 
 ### Desarrollo Local
 
@@ -195,12 +204,16 @@ docker-compose exec database pg_dump -U conciliacion_user conciliacion_db > back
 
 ## 🌐 Despliegue en VPS
 
+### Despliegue para IP 82.112.250.211 con HTTPS
+
+El proyecto ha sido configurado específicamente para desplegarse en el VPS con IP **82.112.250.211** usando certificados SSL auto-firmados.
+
 ### 1. Preparar el servidor
 
 **Actualizar sistema:**
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install curl wget git -y
+sudo apt install curl wget git openssl -y
 ```
 
 **Instalar Docker:**
@@ -224,39 +237,55 @@ docker --version
 docker-compose --version
 ```
 
-### 2. Configurar el proyecto
+### 2. Configurar certificados SSL
+
+**Crear certificados auto-firmados:**
+```bash
+# Crear directorio para certificados
+sudo mkdir -p /etc/ssl/certs /etc/ssl/private
+
+# Generar certificado auto-firmado para la IP
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout /etc/ssl/private/nginx-selfsigned.key \
+  -out /etc/ssl/certs/nginx-selfsigned.crt \
+  -subj "/C=CO/ST=Cundinamarca/L=Bogota/O=UCMC/CN=82.112.250.211"
+
+# Configurar permisos
+sudo chmod 600 /etc/ssl/private/nginx-selfsigned.key
+sudo chmod 644 /etc/ssl/certs/nginx-selfsigned.crt
+```
+
+### 3. Configurar el proyecto
 
 ```bash
 # Clonar repositorio
 git clone <your-repository-url>
 cd app_conciliacion
 
-# Configurar variables de producción
-cp .env.example .env
-nano .env
+# El proyecto ya incluye el archivo .env configurado para la IP
+# Los siguientes archivos ya están configurados:
+# - docker-compose.yml (con SSL volumes y configuración corregida)
+# - .env (configurado para IP 82.112.250.211)
+# - nginx/nginx-ssl.conf (configuración HTTPS)
+# - backend/Dockerfile (corregido para JAR copy)
+# - frontend/Dockerfile (corregido para build)
 ```
 
-**Configuración de producción en .env:**
+**Variables de entorno ya configuradas en .env:**
 ```env
-# Database (usar contraseñas seguras)
 POSTGRES_DB=conciliacion_prod
 POSTGRES_USER=conciliacion_admin
-POSTGRES_PASSWORD=Tu_Contraseña_Muy_Segura_2024!@#$
+POSTGRES_PASSWORD=SecurePassword2024!@#$
 POSTGRES_PORT=5432
-
-# Ports
 FRONTEND_PORT=80
 FRONTEND_SSL_PORT=443
 BACKEND_PORT=8082
-
-# Spring Profile
 SPRING_PROFILES_ACTIVE=production
-
-# CORS (ajustar con tu dominio)
-CORS_ALLOWED_ORIGINS=https://tu-dominio.com,http://tu-dominio.com
+CORS_ALLOWED_ORIGINS=https://82.112.250.211,http://82.112.250.211
+JAVA_OPTS=-Xms256m -Xmx512m
 ```
 
-### 3. Configurar firewall
+### 4. Configurar firewall
 
 ```bash
 # Habilitar UFW
@@ -276,26 +305,6 @@ sudo ufw allow 8082
 sudo ufw status
 ```
 
-### 4. Configurar SSL con Let's Encrypt (Producción)
-
-**Instalar Certbot:**
-```bash
-sudo apt install snapd
-sudo snap install --classic certbot
-sudo ln -s /snap/bin/certbot /usr/bin/certbot
-```
-
-**Obtener certificado:**
-```bash
-# Detener la aplicación temporalmente
-docker-compose down
-
-# Obtener certificado
-sudo certbot certonly --standalone -d tu-dominio.com
-
-# Los certificados se guardan en: /etc/letsencrypt/live/tu-dominio.com/
-```
-
 ### 5. Ejecutar la aplicación
 
 ```bash
@@ -307,7 +316,18 @@ docker-compose ps
 docker-compose logs -f
 ```
 
-### 6. Configurar backup automático
+### 6. Acceder a la aplicación
+
+Una vez desplegada, la aplicación estará disponible en:
+
+- **Frontend HTTPS**: https://82.112.250.211 (recomendado)
+- **Frontend HTTP**: http://82.112.250.211 (redirige automáticamente a HTTPS)
+- **Backend API**: https://82.112.250.211/api
+- **Health Check**: https://82.112.250.211/api/actuator/health
+
+⚠️ **Nota sobre certificados auto-firmados**: Los navegadores mostrarán una advertencia de seguridad. Esto es normal con certificados auto-firmados. Haga clic en "Avanzado" → "Continuar al sitio" para acceder.
+
+### 7. Configurar backup automático
 
 ```bash
 # Crear script de backup
@@ -331,7 +351,7 @@ chmod +x /home/$(whoami)/backup.sh
 (crontab -l 2>/dev/null; echo "0 2 * * * /home/$(whoami)/backup.sh") | crontab -
 ```
 
-### 7. Monitoreo y mantenimiento
+### 8. Monitoreo y mantenimiento
 
 **Ver logs:**
 ```bash
