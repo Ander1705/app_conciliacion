@@ -102,6 +102,7 @@ const ConvocanteForm = ({ formData, updateFormData, errors = {} }) => {
             label="Fecha y Lugar de Expedición"
             value={convocante.fechaExpedicion || ''}
             onChange={handleInputChange('fechaExpedicion')}
+            placeholder="Ej: 15/01/2020 - Bogotá"
             error={errors.fechaExpedicion}
           />
         </div>
@@ -128,6 +129,7 @@ const ConvocanteForm = ({ formData, updateFormData, errors = {} }) => {
           label="Celular"
           value={convocante.celular || ''}
           onChange={handleInputChange('celular')}
+          placeholder="Ej: 3001234567"
           error={errors.celular}
         />
       </div>
@@ -137,6 +139,7 @@ const ConvocanteForm = ({ formData, updateFormData, errors = {} }) => {
           label="WhatsApp"
           value={convocante.whatsapp || ''}
           onChange={handleInputChange('whatsapp')}
+          placeholder="Ej: 3001234567"
           error={errors.whatsapp}
         />
         <Select
