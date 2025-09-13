@@ -34,23 +34,15 @@ const Textarea = forwardRef(({
         />
         
         {(showCharacterCount || maxLength) && (
-          <div className={`character-counter ${isOverLimit ? 'counter-over' : isNearLimit ? 'counter-near' : 'counter-normal'}`}>
-            <div className="counter-info">
-              <span className="counter-current">{currentLength}</span>
-              {maxLength && (
-                <>
-                  <span className="counter-separator">/</span>
-                  <span className="counter-max">{maxLength}</span>
-                </>
-              )}
-              <span className="counter-label"> caracteres</span>
-            </div>
-            {isOverLimit && (
-              <div className="counter-warning">
-                <span className="warning-icon">⚠️</span>
-                <span className="warning-text">Límite excedido</span>
-              </div>
-            )}
+          <div style={{
+            textAlign: 'right', 
+            fontSize: '0.75rem', 
+            color: isOverLimit ? '#dc2626' : '#6b7280',
+            marginTop: '0.25rem',
+            fontWeight: isOverLimit ? '600' : '500'
+          }}>
+            {currentLength}{maxLength && `/${maxLength}`} caracteres
+            {isOverLimit && <span style={{color: '#dc2626', marginLeft: '0.5rem'}}>⚠️ Límite excedido</span>}
           </div>
         )}
       </div>
