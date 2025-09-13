@@ -28,10 +28,8 @@ const HechosForm = ({ formData, updateFormData, errors }) => {
           error={errors.primero}
           required
           maxLength={100}
+          showCharacterCount={true}
         />
-        <div style={{textAlign: 'right', fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem'}}>
-          {(hechosData.primero || '').length}/100 caracteres
-        </div>
 
         <Textarea
           label="SEGUNDO"
@@ -41,10 +39,8 @@ const HechosForm = ({ formData, updateFormData, errors }) => {
           rows={4}
           error={errors.segundo}
           maxLength={100}
+          showCharacterCount={true}
         />
-        <div style={{textAlign: 'right', fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem'}}>
-          {(hechosData.segundo || '').length}/100 caracteres
-        </div>
 
         <Textarea
           label="TERCERO"
@@ -54,10 +50,8 @@ const HechosForm = ({ formData, updateFormData, errors }) => {
           rows={4}
           error={errors.tercero}
           maxLength={100}
+          showCharacterCount={true}
         />
-        <div style={{textAlign: 'right', fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem'}}>
-          {(hechosData.tercero || '').length}/100 caracteres
-        </div>
 
         <Textarea
           label="CUARTO"
@@ -67,10 +61,8 @@ const HechosForm = ({ formData, updateFormData, errors }) => {
           rows={4}
           error={errors.cuarto}
           maxLength={100}
+          showCharacterCount={true}
         />
-        <div style={{textAlign: 'right', fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem'}}>
-          {(hechosData.cuarto || '').length}/100 caracteres
-        </div>
 
         <Textarea
           label="QUINTO"
@@ -80,10 +72,8 @@ const HechosForm = ({ formData, updateFormData, errors }) => {
           rows={4}
           error={errors.quinto}
           maxLength={100}
+          showCharacterCount={true}
         />
-        <div style={{textAlign: 'right', fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem'}}>
-          {(hechosData.quinto || '').length}/100 caracteres
-        </div>
       </div>
 
       <div style={{marginTop: '1.5rem', padding: '1rem', backgroundColor: '#dbeafe', borderRadius: '8px', border: '1px solid #3b82f6'}}>

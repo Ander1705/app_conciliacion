@@ -1,22 +1,62 @@
 import { forwardRef } from 'react'
 
-const Textarea = forwardRef(({ label, error, required, rows = 4, className = '', ...props }, ref) => {
+const Textarea = forwardRef(({ 
+  label, 
+  error, 
+  required, 
+  rows = 4, 
+  className = '', 
+  maxLength,
+  showCharacterCount = false,
+  value = '',
+  ...props 
+}, ref) => {
+  const currentLength = value?.length || 0
+  const isOverLimit = maxLength && currentLength > maxLength
+  const isNearLimit = maxLength && currentLength >= maxLength * 0.8
+
   return (
-    <div className="mb-4">
+    <div className="textarea-container">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="textarea-label">
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className="required-indicator">*</span>}
         </label>
       )}
-      <textarea
-        ref={ref}
-        rows={rows}
-        className={`form-textarea ${error ? 'border-red-500 focus:ring-red-500' : ''} ${className}`}
-        {...props}
-      />
+      
+      <div className="textarea-wrapper">
+        <textarea
+          ref={ref}
+          rows={rows}
+          value={value}
+          className={`form-textarea ${error ? 'textarea-error' : ''} ${className}`}
+          {...props}
+        />
+        
+        {(showCharacterCount || maxLength) && (
+          <div className={`character-counter ${isOverLimit ? 'counter-over' : isNearLimit ? 'counter-near' : 'counter-normal'}`}>
+            <div className="counter-info">
+              <span className="counter-current">{currentLength}</span>
+              {maxLength && (
+                <>
+                  <span className="counter-separator">/</span>
+                  <span className="counter-max">{maxLength}</span>
+                </>
+              )}
+              <span className="counter-label"> caracteres</span>
+            </div>
+            {isOverLimit && (
+              <div className="counter-warning">
+                <span className="warning-icon">⚠️</span>
+                <span className="warning-text">Límite excedido</span>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      
       {error && (
-        <p className="mt-1 text-sm text-red-600">{error}</p>
+        <p className="textarea-error-message">{error}</p>
       )}
     </div>
   )

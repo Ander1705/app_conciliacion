@@ -29,10 +29,8 @@ const PretensionesForm = ({ formData, updateFormData, errors }) => {
           error={errors.primera}
           required
           maxLength={100}
+          showCharacterCount={true}
         />
-        <div style={{textAlign: 'right', fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem'}}>
-          {(pretensionesData.primera || '').length}/100 caracteres
-        </div>
 
         <Textarea
           label="SEGUNDA"
@@ -42,10 +40,8 @@ const PretensionesForm = ({ formData, updateFormData, errors }) => {
           rows={4}
           error={errors.segunda}
           maxLength={100}
+          showCharacterCount={true}
         />
-        <div style={{textAlign: 'right', fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem'}}>
-          {(pretensionesData.segunda || '').length}/100 caracteres
-        </div>
 
         <Textarea
           label="TERCERA"
@@ -55,10 +51,8 @@ const PretensionesForm = ({ formData, updateFormData, errors }) => {
           rows={4}
           error={errors.tercera}
           maxLength={100}
+          showCharacterCount={true}
         />
-        <div style={{textAlign: 'right', fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem'}}>
-          {(pretensionesData.tercera || '').length}/100 caracteres
-        </div>
       </div>
 
       <div style={{marginTop: '1.5rem', padding: '1rem', backgroundColor: '#fef3c7', borderRadius: '8px', border: '1px solid #f59e0b'}}>

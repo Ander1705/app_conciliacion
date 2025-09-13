@@ -2,29 +2,57 @@ import escudo from '../../assets/escudo.png'
 
 const Header = () => {
   return (
-    <header className="university-header" style={{padding: '1.5rem 1rem'}}>
-      <div style={{maxWidth: '64rem', margin: '0 auto'}}>
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem'}}>
-          <img 
-            src={escudo} 
-            alt="Universidad Colegio Mayor de Cundinamarca" 
-            style={{height: '4rem', width: '4rem', marginRight: '1rem'}}
-          />
-          <div style={{textAlign: 'center'}}>
-            <h1 style={{fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.25rem'}}>CENTRO DE CONCILIACIÓN</h1>
-            <p style={{fontSize: '0.875rem', opacity: 0.9}}>Universidad Colegio Mayor de Cundinamarca</p>
+    <header className="university-header">
+      <div className="header-container">
+        {/* Banner superior */}
+        <div className="header-banner">
+          <span className="service-badge">Servicio Gratuito</span>
+        </div>
+        
+        {/* Contenido principal del header */}
+        <div className="header-main">
+          <div className="header-content">
+            {/* Logo y título principal */}
+            <div className="header-identity">
+              <div className="logo-container">
+                <img 
+                  src={escudo} 
+                  alt="Universidad Colegio Mayor de Cundinamarca" 
+                  className="university-logo"
+                />
+              </div>
+              <div className="title-section">
+                <h1 className="university-title">UNIVERSIDAD COLEGIO MAYOR DE CUNDINAMARCA</h1>
+                <h2 className="center-title">CENTRO DE CONCILIACIÓN</h2>
+                <p className="subtitle">Resolución No. 2099 de diciembre 12 de 2003 Ministerio del Interior y de Justicia – Código 05 110012180</p>
+              </div>
+            </div>
+            
+            {/* Información de contacto */}
+            <div className="contact-info">
+              <div className="contact-item">
+                <span className="contact-icon">📍</span>
+                <span>Diagonal 34 No. 5-71, Bogotá D.C.</span>
+              </div>
+              <div className="contact-item">
+                <span className="contact-icon">📞</span>
+                <span>Teléfono: 2457169</span>
+              </div>
+              <div className="contact-item">
+                <span className="contact-icon">✉️</span>
+                <span>conciliacion@universidadmayor.edu.co</span>
+              </div>
+            </div>
           </div>
         </div>
         
-        <div style={{textAlign: 'center', fontSize: '0.875rem'}}>
-          <p style={{marginBottom: '0.25rem'}}>Resolución No. 2099 de diciembre 12 de 2003</p>
-          <p style={{marginBottom: '0.25rem'}}>Diagonal 34 No. 5-71 Teléfono 2457169 Bogotá, D.C.</p>
-          <p style={{marginBottom: '0.5rem'}}>conciliacion@universidadmayor.edu.co</p>
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.5rem', paddingTop: '0.5rem', borderTop: '1px solid #60a5fa'}}>
-            <span>Código: MPMFO-04 Versión 2</span>
-            <span style={{backgroundColor: 'var(--color-university-gold)', color: 'var(--color-university-blue)', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', fontSize: '0.75rem', fontWeight: '600'}}>
-              Servicio Gratuito
-            </span>
+        {/* Footer del header */}
+        <div className="header-footer">
+          <div className="document-title">
+            <h3>SOLICITUD DE CONCILIACIÓN</h3>
+          </div>
+          <div className="document-info">
+            <span className="document-code">MPMFO-04 Versión 2</span>
           </div>
         </div>
       </div>
