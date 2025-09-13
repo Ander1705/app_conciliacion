@@ -840,7 +840,7 @@ public class PdfGeneratorService {
                 textoHecho = textoHecho.substring(0, 100) + "...";
             }
             
-            // Mostrar solo el texto SIN líneas adicionales cuando hay contenido
+            // Mostrar solo el texto SIN líneas cuando hay contenido
             document.add(new Paragraph(numero + ": " + textoHecho)
                     .setFont(fontRegular)
                     .setFontSize(7.5f)
@@ -848,14 +848,8 @@ public class PdfGeneratorService {
                     .setMarginBottom(1.5f)
                     .setTextAlignment(com.itextpdf.layout.properties.TextAlignment.LEFT));
         } else {
-            // Si no hay contenido, mostrar líneas vacías para llenar manualmente
+            // Si no hay contenido, mostrar UNA SOLA línea que desaparezca cuando se llene
             document.add(new Paragraph(numero + ": " + "_".repeat(75))
-                    .setFont(fontRegular)
-                    .setFontSize(7.5f)
-                    .setFixedLeading(8.0f)
-                    .setMarginBottom(0.5f));
-            // Segunda línea para continuar escribiendo
-            document.add(new Paragraph("_".repeat(95))
                     .setFont(fontRegular)
                     .setFontSize(7.5f)
                     .setFixedLeading(8.0f)
@@ -873,7 +867,7 @@ public class PdfGeneratorService {
                 textoPretension = textoPretension.substring(0, 100) + "...";
             }
             
-            // Mostrar solo el texto SIN líneas adicionales cuando hay contenido
+            // Mostrar solo el texto SIN líneas cuando hay contenido
             document.add(new Paragraph(numero + ": " + textoPretension)
                     .setFont(fontRegular)
                     .setFontSize(7.5f)
@@ -881,14 +875,8 @@ public class PdfGeneratorService {
                     .setMarginBottom(1.5f)
                     .setTextAlignment(com.itextpdf.layout.properties.TextAlignment.LEFT));
         } else {
-            // Si no hay contenido, mostrar líneas vacías para llenar manualmente
+            // Si no hay contenido, mostrar UNA SOLA línea que desaparezca cuando se llene
             document.add(new Paragraph(numero + ": " + "_".repeat(75))
-                    .setFont(fontRegular)
-                    .setFontSize(7.5f)
-                    .setFixedLeading(8.0f)
-                    .setMarginBottom(0.5f));
-            // Segunda línea para continuar escribiendo
-            document.add(new Paragraph("_".repeat(95))
                     .setFont(fontRegular)
                     .setFontSize(7.5f)
                     .setFixedLeading(8.0f)
