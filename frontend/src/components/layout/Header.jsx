@@ -13,7 +13,7 @@ const Header = () => {
         <div style={{ 
           display: 'flex', 
           alignItems: 'center', 
-          gap: '1.5rem',
+          gap: '1rem',
           marginBottom: '1rem',
           flexWrap: 'wrap'
         }}>
@@ -21,7 +21,7 @@ const Header = () => {
             src={escudo} 
             alt="Universidad Colegio Mayor de Cundinamarca" 
             style={{
-              height: '4rem',
+              height: '5rem',
               width: 'auto',
               objectFit: 'contain'
             }}
