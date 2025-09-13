@@ -35,6 +35,9 @@ if curl -f https://82.112.250.211/api/actuator/health > /dev/null 2>&1; then
     echo "  - Hechos: Una sola línea por campo"
     echo "  - Pretensiones: Una sola línea por campo"
     echo "  - La línea desaparece cuando hay contenido"
+    echo "  - Campos con separación adecuada (ej: 'Ciudad: Bogotá')"
+    echo "  - Mejores espacios entre etiquetas y valores"
+    echo "  - Mayor legibilidad en todos los campos"
     echo ""
     echo "🌐 Prueba generando un nuevo PDF en: https://82.112.250.211"
 else

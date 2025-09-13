@@ -161,7 +161,7 @@ public class PdfGeneratorService {
         String fechaNacimiento = solicitud.getConvFechaNacimiento() != null ? solicitud.getConvFechaNacimiento().toString() : "";
         String edad = solicitud.getConvEdad() != null ? solicitud.getConvEdad().toString() : "";
         document.add(new Paragraph("Fecha y lugar de Expedición: " + completarCampoCentrado(fechaExpedicion, 32) + 
-                "Fecha de Nacimiento: " + completarCampoCentrado(fechaNacimiento, 14) + "Edad: " + completarCampoCentrado(edad, 8))
+                "Fecha de Nacimiento: " + completarCampoCentrado(fechaNacimiento, 14) + " Edad: " + completarCampoCentrado(edad, 8))
                 .setFont(fontRegular)
                 .setFontSize(7.8f)
                 .setFixedLeading(8.8f)
@@ -170,7 +170,7 @@ public class PdfGeneratorService {
         // **CELULAR, WHATSAPP, ESTADO CIVIL CON DATOS REALES**
         document.add(new Paragraph("Celular: " + completarCampoCentrado(obtenerValor(solicitud.getConvCelular()), 28) + 
                 " whatsapp: " + completarCampoCentrado(obtenerValor(solicitud.getConvWhatsapp()), 27) + 
-                "Estado Civil: " + completarCampoCentrado(obtenerValor(solicitud.getConvEstadoCivil()), 20))
+                " Estado Civil: " + completarCampoCentrado(obtenerValor(solicitud.getConvEstadoCivil()), 20))
                 .setFont(fontRegular)
                 .setFontSize(7.8f)
                 .setFixedLeading(8.8f)
@@ -195,10 +195,10 @@ public class PdfGeneratorService {
         String grupoEtnico = obtenerValor(solicitud.getConvGrupoEtnico());
         Boolean discapacidad = solicitud.getConvDiscapacidad();
         String cualDiscapacidad = obtenerValor(solicitud.getConvCualDiscapacidad());
-        document.add(new Paragraph("¿Grupo étnico " + completarCampoCentrado(grupoEtnico, 18) + 
-                "Discapacidad?: No " + (Boolean.FALSE.equals(discapacidad) ? " (X) " : "___") + 
+        document.add(new Paragraph("¿Grupo étnico? " + completarCampoCentrado(grupoEtnico, 18) + 
+                " Discapacidad?: No " + (Boolean.FALSE.equals(discapacidad) ? " (X) " : "___") + 
                 " Si " + (Boolean.TRUE.equals(discapacidad) ? " (X) " : "___") + 
-                " Cual? " + completarCampoCentrado(cualDiscapacidad, 33))
+                " ¿Cual? " + completarCampoCentrado(cualDiscapacidad, 33))
                 .setFont(fontRegular)
                 .setFontSize(7.8f)
                 .setFixedLeading(8.8f)
@@ -206,26 +206,26 @@ public class PdfGeneratorService {
                 
         // **ESTRATO Y ESCOLARIDAD CON DATOS REALES**
         String estrato = solicitud.getConvEstrato() != null ? solicitud.getConvEstrato().toString() : "";
-        document.add(new Paragraph("Estrato:" + completarCampoCentrado(estrato, 8) + 
+        document.add(new Paragraph("Estrato: " + completarCampoCentrado(estrato, 8) + 
                 " Nivel de escolaridad " + completarCampoCentrado(obtenerValor(solicitud.getConvNivelEscolaridad()), 14) + 
                 " Ocupación: " + completarCampoCentrado(obtenerValor(solicitud.getConvOcupacion()), 18) + 
-                " País" + completarCampoCentrado(obtenerValor(solicitud.getConvPais()), 15))
+                " País: " + completarCampoCentrado(obtenerValor(solicitud.getConvPais()), 15))
                 .setFont(fontRegular)
                 .setFontSize(7.8f)
                 .setFixedLeading(8.8f)
                 .setMarginBottom(2));
                 
         // **DIRECCIÓN COMPLETA CON DATOS REALES**
-        document.add(new Paragraph("Departamento" + completarCampoCentrado(obtenerValor(solicitud.getConvDepartamento()), 32) + 
-                "Ciudad:" + completarCampoCentrado(obtenerValor(solicitud.getConvCiudad()), 20) + 
-                "Municipio:" + completarCampoCentrado(obtenerValor(solicitud.getConvMunicipio()), 24))
+        document.add(new Paragraph("Departamento: " + completarCampoCentrado(obtenerValor(solicitud.getConvDepartamento()), 32) + 
+                " Ciudad: " + completarCampoCentrado(obtenerValor(solicitud.getConvCiudad()), 20) + 
+                " Municipio: " + completarCampoCentrado(obtenerValor(solicitud.getConvMunicipio()), 24))
                 .setFont(fontRegular)
                 .setFontSize(7.8f)
                 .setFixedLeading(8.8f)
                 .setMarginBottom(2));
                 
-        document.add(new Paragraph("Dirección" + completarCampoCentrado(obtenerValor(solicitud.getConvDireccion()), 64) + 
-                "Localidad:" + completarCampoCentrado(obtenerValor(solicitud.getConvLocalidad()), 22))
+        document.add(new Paragraph("Dirección: " + completarCampoCentrado(obtenerValor(solicitud.getConvDireccion()), 64) + 
+                " Localidad: " + completarCampoCentrado(obtenerValor(solicitud.getConvLocalidad()), 22))
                 .setFont(fontRegular)
                 .setFontSize(7.8f)
                 .setFixedLeading(8.8f)
@@ -289,7 +289,7 @@ public class PdfGeneratorService {
         String fechaNacimientoConv = solicitud.getConvocadoFechaNacimiento() != null ? solicitud.getConvocadoFechaNacimiento().toString() : "";
         String edadConv = solicitud.getConvocadoEdad() != null ? solicitud.getConvocadoEdad().toString() : "";
         document.add(new Paragraph("Fecha y lugar de Expedición: " + completarCampoCentrado(fechaExpedicionConv, 32) + 
-                "Fecha de Nacimiento: " + completarCampoCentrado(fechaNacimientoConv, 14) + "Edad: " + completarCampoCentrado(edadConv, 8))
+                "Fecha de Nacimiento: " + completarCampoCentrado(fechaNacimientoConv, 14) + " Edad: " + completarCampoCentrado(edadConv, 8))
                 .setFont(fontRegular)
                 .setFontSize(7.8f)
                 .setFixedLeading(8.8f)
@@ -298,7 +298,7 @@ public class PdfGeneratorService {
         // **CELULAR, WHATSAPP, ESTADO CIVIL CON DATOS REALES DEL CONVOCADO**
         document.add(new Paragraph("Celular: " + completarCampoCentrado(obtenerValor(solicitud.getConvocadoCelular()), 28) + 
                 " whatsapp: " + completarCampoCentrado(obtenerValor(solicitud.getConvocadoWhatsapp()), 27) + 
-                "Estado Civil: " + completarCampoCentrado(obtenerValor(solicitud.getConvocadoEstadoCivil()), 20))
+                " Estado Civil: " + completarCampoCentrado(obtenerValor(solicitud.getConvocadoEstadoCivil()), 20))
                 .setFont(fontRegular)
                 .setFontSize(7.8f)
                 .setFixedLeading(8.8f)
@@ -323,10 +323,10 @@ public class PdfGeneratorService {
         String grupoEtnicoConv = obtenerValor(solicitud.getConvocadoGrupoEtnico());
         Boolean discapacidadConv = solicitud.getConvocadoDiscapacidad();
         String cualDiscapacidadConv = obtenerValor(solicitud.getConvocadoCualDiscapacidad());
-        document.add(new Paragraph("¿Grupo étnico " + completarCampoCentrado(grupoEtnicoConv, 18) + 
-                "Discapacidad?: No " + (Boolean.FALSE.equals(discapacidadConv) ? " (X) " : "___") + 
+        document.add(new Paragraph("¿Grupo étnico? " + completarCampoCentrado(grupoEtnicoConv, 18) + 
+                " Discapacidad?: No " + (Boolean.FALSE.equals(discapacidadConv) ? " (X) " : "___") + 
                 " Si " + (Boolean.TRUE.equals(discapacidadConv) ? " (X) " : "___") + 
-                " Cual? " + completarCampoCentrado(cualDiscapacidadConv, 33))
+                " ¿Cual? " + completarCampoCentrado(cualDiscapacidadConv, 33))
                 .setFont(fontRegular)
                 .setFontSize(7.8f)
                 .setFixedLeading(8.8f)
@@ -334,26 +334,26 @@ public class PdfGeneratorService {
                 
         // **ESTRATO Y ESCOLARIDAD CON DATOS REALES DEL CONVOCADO**
         String estratoConv = solicitud.getConvocadoEstrato() != null ? solicitud.getConvocadoEstrato().toString() : "";
-        document.add(new Paragraph("Estrato:" + completarCampoCentrado(estratoConv, 8) + 
+        document.add(new Paragraph("Estrato: " + completarCampoCentrado(estratoConv, 8) + 
                 " Nivel de escolaridad " + completarCampoCentrado(obtenerValor(solicitud.getConvocadoNivelEscolaridad()), 14) + 
                 " Ocupación: " + completarCampoCentrado(obtenerValor(solicitud.getConvocadoOcupacion()), 18) + 
-                " País" + completarCampoCentrado(obtenerValor(solicitud.getConvocadoPais()), 15))
+                " País: " + completarCampoCentrado(obtenerValor(solicitud.getConvocadoPais()), 15))
                 .setFont(fontRegular)
                 .setFontSize(7.8f)
                 .setFixedLeading(8.8f)
                 .setMarginBottom(2));
                 
         // **DIRECCIÓN COMPLETA CON DATOS REALES DEL CONVOCADO**
-        document.add(new Paragraph("Departamento" + completarCampoCentrado(obtenerValor(solicitud.getConvocadoDepartamento()), 32) + 
-                "Ciudad:" + completarCampoCentrado(obtenerValor(solicitud.getConvocadoCiudad()), 20) + 
-                "Municipio:" + completarCampoCentrado(obtenerValor(solicitud.getConvocadoMunicipio()), 24))
+        document.add(new Paragraph("Departamento: " + completarCampoCentrado(obtenerValor(solicitud.getConvocadoDepartamento()), 32) + 
+                " Ciudad: " + completarCampoCentrado(obtenerValor(solicitud.getConvocadoCiudad()), 20) + 
+                " Municipio: " + completarCampoCentrado(obtenerValor(solicitud.getConvocadoMunicipio()), 24))
                 .setFont(fontRegular)
                 .setFontSize(7.8f)
                 .setFixedLeading(8.8f)
                 .setMarginBottom(2));
                 
-        document.add(new Paragraph("Dirección" + completarCampoCentrado(obtenerValor(solicitud.getConvocadoDireccion()), 64) + 
-                "Localidad:" + completarCampoCentrado(obtenerValor(solicitud.getConvocadoLocalidad()), 22))
+        document.add(new Paragraph("Dirección: " + completarCampoCentrado(obtenerValor(solicitud.getConvocadoDireccion()), 64) + 
+                " Localidad: " + completarCampoCentrado(obtenerValor(solicitud.getConvocadoLocalidad()), 22))
                 .setFont(fontRegular)
                 .setFontSize(7.8f)
                 .setFixedLeading(8.8f)
@@ -410,13 +410,13 @@ public class PdfGeneratorService {
 
         document.add(new Paragraph("C.C. " + completarCampo(obtenerValor(solicitud.getApoderadoCc()), 15) +
                 " T.P. " + completarCampo(obtenerValor(solicitud.getApoderadoTp()), 12) +
-                " Dirección " + completarCampo(obtenerValor(solicitud.getApoderadoDireccion()), 35))
+                " Dirección: " + completarCampo(obtenerValor(solicitud.getApoderadoDireccion()), 35))
                 .setFont(fontRegular)
                 .setFontSize(8.3f)
                 .setFixedLeading(9.3f)
                 .setMarginBottom(1));
 
-        document.add(new Paragraph("Ciudad:" + completarCampo(obtenerValor(solicitud.getApoderadoCiudad()), 15) +
+        document.add(new Paragraph("Ciudad: " + completarCampo(obtenerValor(solicitud.getApoderadoCiudad()), 15) +
                 " Teléfono " + completarCampo(obtenerValor(solicitud.getApoderadoTelefono()), 15) +
                 " Correo electrónico " + completarCampo(obtenerValor(solicitud.getApoderadoCorreo()), 25))
                 .setFont(fontRegular)
@@ -686,7 +686,7 @@ public class PdfGeneratorService {
                 .setMarginBottom(1));
 
         document.add(new Paragraph("Domicilio profesional: " + completarCampo(obtenerValor(solicitud.getNotifApoderadoDomicilio()), 65) +
-                "Ciudad" + completarCampo(obtenerValor(solicitud.getNotifApoderadoCiudad()), 15))
+                " Ciudad: " + completarCampo(obtenerValor(solicitud.getNotifApoderadoCiudad()), 15))
                 .setFont(fontRegular)
                 .setFontSize(8.3f)
                 .setFixedLeading(9)
@@ -809,7 +809,7 @@ public class PdfGeneratorService {
                 .setFixedLeading(9.3f)
                 .setMarginBottom(1));
 
-        document.add(new Paragraph("C.C.No. " + completarCampo(obtenerValor(solicitud.getSolicitanteCc()), 20))
+        document.add(new Paragraph("C.C. No. " + completarCampo(obtenerValor(solicitud.getSolicitanteCc()), 20))
                 .setFont(fontRegular)
                 .setFontSize(8.3f)
                 .setFixedLeading(9.3f)
