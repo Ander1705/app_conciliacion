@@ -18,9 +18,15 @@ const Textarea = forwardRef(({
   return (
     <div className="textarea-container">
       {label && (
-        <label className="textarea-label">
+        <label style={{
+          display: 'block',
+          fontSize: '0.875rem',
+          fontWeight: '600',
+          color: '#1f2937',
+          marginBottom: '0.25rem'
+        }}>
           {label}
-          {required && <span className="required-indicator">*</span>}
+          {required && <span style={{color: '#dc2626', marginLeft: '0.25rem', fontWeight: '600'}}>*</span>}
         </label>
       )}
       
