@@ -2,13 +2,21 @@ import FormSection from '../ui/FormSection'
 import Input from '../ui/Input'
 import Select from '../ui/Select'
 import Checkbox from '../ui/Checkbox'
-import { CIVIL_STATUS_OPTIONS, EDUCATION_LEVELS } from '../../utils/constants'
+import { CIVIL_STATUS_OPTIONS, EDUCATION_LEVELS, COLOMBIAN_DEPARTMENTS } from '../../utils/constants'
 
 const ConvocadoForm = ({ formData, updateFormData, errors }) => {
   const convocadoData = formData.convocado || {}
 
   const handleInputChange = (field, value) => {
     updateFormData('convocado', { [field]: value })
+  }
+
+  const handleDepartmentChange = (value) => {
+    const newData = { departamento: value }
+    if (value === 'Distrito Capital') {
+      newData.ciudad = 'Bogotá D.C.'
+    }
+    updateFormData('convocado', newData)
   }
 
   const tiposDocumento = [
@@ -216,14 +224,16 @@ const ConvocadoForm = ({ formData, updateFormData, errors }) => {
       <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem'}}>
         <Input
           label="País"
-          value={convocadoData.pais || ''}
+          value={convocadoData.pais || 'Colombia'}
           onChange={(e) => handleInputChange('pais', e.target.value)}
           error={errors.pais}
         />
-        <Input
-          label="Departamento:"
+        <Select
+          label="Departamento"
           value={convocadoData.departamento || ''}
-          onChange={(e) => handleInputChange('departamento', e.target.value)}
+          onChange={(e) => handleDepartmentChange(e.target.value)}
+          options={COLOMBIAN_DEPARTMENTS}
+          placeholder="Seleccione departamento"
           error={errors.departamento}
         />
         <Input

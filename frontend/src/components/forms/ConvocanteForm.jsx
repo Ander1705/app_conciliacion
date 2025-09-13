@@ -11,6 +11,15 @@ const ConvocanteForm = ({ formData, updateFormData, errors = {} }) => {
     updateFormData('convocante', { [field]: value })
   }
 
+  const handleDepartmentChange = (e) => {
+    const value = e.target.value
+    const newData = { departamento: value }
+    if (value === 'Distrito Capital') {
+      newData.ciudad = 'Bogotá D.C.'
+    }
+    updateFormData('convocante', newData)
+  }
+
   const handleDocumentTypeChange = (type) => {
     updateFormData('convocante', { 
       tipoDocumento: formData.convocante?.tipoDocumento === type ? '' : type,
@@ -230,7 +239,7 @@ const ConvocanteForm = ({ formData, updateFormData, errors = {} }) => {
           label="Departamento"
           options={COLOMBIAN_DEPARTMENTS}
           value={convocante.departamento || ''}
-          onChange={handleInputChange('departamento')}
+          onChange={handleDepartmentChange}
           placeholder="Seleccione departamento"
           error={errors.departamento}
         />

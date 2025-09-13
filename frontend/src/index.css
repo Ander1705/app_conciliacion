@@ -568,6 +568,13 @@ select.form-input:focus {
     font-size: 0.875rem;
     padding: 0.625rem;
   }
+
+  /* Asegurar que los contadores inline también sean responsive */
+  div[style*="textAlign: 'right'"][style*="fontSize: '0.75rem'"] {
+    font-size: 0.7rem !important;
+    text-align: right !important;
+    margin-top: 0.25rem !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -592,6 +599,13 @@ select.form-input:focus {
     font-size: 0.8rem;
     padding: 0.5rem;
     min-height: 3rem;
+  }
+
+  /* Contadores inline en móviles pequeños */
+  div[style*="textAlign: 'right'"][style*="fontSize: '0.75rem'"] {
+    font-size: 0.65rem !important;
+    text-align: right !important;
+    margin-top: 0.25rem !important;
   }
 }
 

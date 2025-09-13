@@ -58,6 +58,7 @@ export const COLOMBIAN_DEPARTMENTS = [
   { value: 'Chocó', label: 'Chocó' },
   { value: 'Córdoba', label: 'Córdoba' },
   { value: 'Cundinamarca', label: 'Cundinamarca' },
+  { value: 'Distrito Capital', label: 'Distrito Capital' },
   { value: 'Guainía', label: 'Guainía' },
   { value: 'Guaviare', label: 'Guaviare' },
   { value: 'Huila', label: 'Huila' },
