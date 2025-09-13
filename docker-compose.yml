@@ -54,9 +54,7 @@ services:
       - "${FRONTEND_PORT:-80}:80"
       - "${FRONTEND_SSL_PORT:-443}:443"
     volumes:
-      - ./nginx/nginx-ssl.conf:/etc/nginx/nginx.conf:ro
-      - /etc/ssl/certs:/etc/ssl/certs:ro
-      - /etc/ssl/private:/etc/ssl/private:ro
+      - ./frontend/nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
       - conciliacion_network
 
